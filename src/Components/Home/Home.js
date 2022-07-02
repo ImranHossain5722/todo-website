@@ -1,4 +1,5 @@
 import React from 'react';
+import LastSection from './LastSection';
 import OurToDoList from './OurToDoList';
 import TopBanner from './TopBanner';
 
@@ -8,6 +9,7 @@ const Home = () => {
         <div className=''>
             <TopBanner></TopBanner>
             <OurToDoList></OurToDoList>
+            <LastSection></LastSection>
         </div>
     );
 };

@@ -1,8 +1,9 @@
 import React from "react";
 import Photo from "../../Assets/images/topBanner.png";
 import { useForm } from "react-hook-form";
+import { useQuery } from "react-query";
 import Loading from "../Loading/Loading";
-
+import { toast } from "react-toastify";
 const AddToDo = () => {
 
     const {
@@ -12,21 +13,39 @@ const AddToDo = () => {
         formState: { errors },
       } = useForm();
 
-      const { data: addTodo, isLoading } = useQuery("userFeedBack", () =>
-      fetch("https://warm-journey-62382.herokuapp.com/reviews").then((res) =>
+      const { data: addTodo, isLoading } = useQuery("addToDo", () =>
+      fetch("http://localhost:5000/todos").then((res) =>
         res.json()
       )
     );
       const onSubmit = async (data) => {
-        const image = data.image[0];
-        const formData = new FormData();
-       
+    
 
-              const ToDos = {
-                name: data.name,
-                review: data.review,
+              const todos = {
+                TaskName: data.name,
+                date: data.date,
+                TaskDescription:data.TaskDescription
              
               };
+
+              // send data Database
+          fetch("http://localhost:5000/todos", {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            
+            },
+            body: JSON.stringify(todos),
+          })
+          .then((res) => res.json())
+            .then((inserted) => {
+              if (inserted.insertedId) {
+                toast.success("Your To do task add successfully ");
+                reset();
+              } else {
+                toast.error("Failed to add your To do task ");
+              }
+            });
     
               
           
@@ -70,7 +89,7 @@ const AddToDo = () => {
                     type="date"
                     placeholder="Select date"
                     className="input input-bordered w-full max-w-xs text-black"
-                    {...register("review", {
+                    {...register("date", {
                       required: {
                         value: true,
                         message: " Date is Required",
@@ -89,11 +108,11 @@ const AddToDo = () => {
 
                   <textarea
                     type="text"
-                    name="txtname"
+                    name="TaskDescription"
                     rows="8" cols="50"
                     placeholder="Your Task Details "
                     className="input input-bordered w-full max-w-xs text-black"
-                    {...register("image", {
+                    {...register("TaskDescription", {
                       required: {
                         value: true,
                         message: "Image is Required",

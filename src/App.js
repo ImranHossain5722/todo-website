@@ -3,6 +3,8 @@ import './App.css';
 import Nav from './Components/Header/Nav';
 import Home from "./Components/Home/Home"
 import { Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import CompletedTask from './Components/CompletedTasks/CompletedTask';
 import Todo from './Components/To-Do/Todo';
 import Calender from './Components/Calendar/Calender';
@@ -12,6 +14,7 @@ import RequireAuth from './Components/RequireAuth/RequireAuth';
 import AddToDo from './Components/AddTodo/AddToDo';
 import NotFound from './Components/NotFound/NotFound';
 import Footer from './Components/Footer/Footer';
+import TodoUpdate from './Components/TodoUpdate/TodoUpdate';
 
 function App() {
   return (
@@ -22,7 +25,8 @@ function App() {
            <Route path='/' element={<Home></Home>}></Route> 
            <Route path='/addTodo' element={<RequireAuth> <AddToDo></AddToDo>   </RequireAuth>}> </Route>
            <Route path='/completedTask' element={<CompletedTask></CompletedTask>}></Route> 
-           <Route path='/todo' element={<Todo></Todo>}></Route> 
+           <Route path='/todos' element={<Todo></Todo>}></Route> 
+           {/* <Route path='/todo/:id' element={<TodoUpdate></TodoUpdate>}></Route>  */}
            <Route path='/calender' element={<Calender></Calender>}></Route > 
 
           
@@ -34,6 +38,8 @@ function App() {
         </Routes>
 
         <Footer></Footer>
+
+        <ToastContainer/>
       </Nav>
     </div>
   );

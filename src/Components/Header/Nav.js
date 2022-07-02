@@ -61,7 +61,7 @@ const Nav = ({ children }) => {
 
                
                 <li>
-                  <NavLink to="/todo" className="rounded-lg">
+                  <NavLink to="/todos" className="rounded-lg">
                     To Do
                   </NavLink>
                 </li>
@@ -73,6 +73,13 @@ const Nav = ({ children }) => {
                       </NavLink>
               
                   </li>
+                  <li>
+                   
+                   <NavLink to="/calender" className="rounded-lg">
+                     Calendar
+                   </NavLink>
+           
+               </li>
 
                 <li>
                   {user ? (
@@ -149,7 +156,7 @@ const Nav = ({ children }) => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/todo" className="rounded-lg">
+              <NavLink to="/todos" className="rounded-lg">
                 To Do
               </NavLink>
             </li>
@@ -157,6 +164,13 @@ const Nav = ({ children }) => {
                    
                    <NavLink to="/addTodo" className="rounded-lg">
                      Add To Do
+                   </NavLink>
+           
+               </li>
+            <li>
+                   
+                   <NavLink to="/calender" className="rounded-lg">
+                     Calender
                    </NavLink>
            
                </li>
