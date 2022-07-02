@@ -5,51 +5,43 @@ import { useQuery } from "react-query";
 import Loading from "../Loading/Loading";
 import { toast } from "react-toastify";
 const AddToDo = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-    const {
-        register,
-        handleSubmit,
-        reset,
-        formState: { errors },
-      } = useForm();
+  const { data: addTodo, isLoading } = useQuery("addToDo", () =>
+    fetch("https://polite-zed-22063.herokuapp.com/todos").then((res) =>
+      res.json()
+    )
+  );
+  const onSubmit = async (data) => {
+    const todos = {
+      TaskName: data.name,
+      date: data.date,
+      TaskDescription: data.TaskDescription,
+    };
 
-      const { data: addTodo, isLoading } = useQuery("addToDo", () =>
-      fetch("http://localhost:5000/todos").then((res) =>
-        res.json()
-      )
-    );
-      const onSubmit = async (data) => {
-    
-
-              const todos = {
-                TaskName: data.name,
-                date: data.date,
-                TaskDescription:data.TaskDescription
-             
-              };
-
-              // send data Database
-          fetch("http://localhost:5000/todos", {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            
-            },
-            body: JSON.stringify(todos),
-          })
-          .then((res) => res.json())
-            .then((inserted) => {
-              if (inserted.insertedId) {
-                toast.success("Your To do task add successfully ");
-                reset();
-              } else {
-                toast.error("Failed to add your To do task ");
-              }
-            });
-    
-              
-          
-      };
+    // send data Database
+    fetch("https://polite-zed-22063.herokuapp.com/todos", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(todos),
+    })
+      .then((res) => res.json())
+      .then((inserted) => {
+        if (inserted.insertedId) {
+          toast.success("Your To do task add successfully ");
+          reset();
+        } else {
+          toast.error("Failed to add your To do task ");
+        }
+      });
+  };
 
   return (
     <div>
@@ -85,7 +77,6 @@ const AddToDo = () => {
                   {/* for review */}
 
                   <input
-                   
                     type="date"
                     placeholder="Select date"
                     className="input input-bordered w-full max-w-xs text-black"
@@ -109,7 +100,8 @@ const AddToDo = () => {
                   <textarea
                     type="text"
                     name="TaskDescription"
-                    rows="8" cols="50"
+                    rows="8"
+                    cols="50"
                     placeholder="Your Task Details "
                     className="input input-bordered w-full max-w-xs text-black"
                     {...register("TaskDescription", {

@@ -11,7 +11,7 @@ const Todo = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:5000/todos")
+    fetch("https://polite-zed-22063.herokuapp.com/todos")
       .then((res) => res.json())
       .then((data) => setToDos(data));
   }, []);
@@ -39,13 +39,11 @@ const Todo = () => {
                   {todo.TaskDescription}
                 </td>
                 <td>
-                <label for="my-todo-modal" class="btn modal-button">
+                  <label for="my-todo-modal" class="btn modal-button">
                     Edit
-                </label>
+                  </label>
                 </td>
               </tr>
-                
-                
             ))}
           </tbody>
           <tfoot>
@@ -58,7 +56,6 @@ const Todo = () => {
             </tr>
           </tfoot>
         </table>
-
       </div>
     </div>
   );
